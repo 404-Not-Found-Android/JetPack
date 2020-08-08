@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "applicationId": "com.scwang.smart.refresh.header.material",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "AAPT_FRIENDLY_MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 1,
+        "versionName": "1.0",
+        "outputFile": "refresh-header-material-debug.aar",
+        "fullName": "debug",
+        "baseName": "debug",
+        "dirName": ""
+      },
+      "path": "AndroidManifest.xml",
+      "properties": {
+        "packageId": "com.scwang.smart.refresh.header.material",
+        "split": ""
+      }
+    }
+  ]
+}
