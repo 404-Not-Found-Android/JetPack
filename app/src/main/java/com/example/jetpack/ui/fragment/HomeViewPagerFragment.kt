@@ -7,11 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.jetpack.databinding.FragmentHomeBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeViewPagerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class HomeViewPagerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
