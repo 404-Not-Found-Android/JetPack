@@ -3,7 +3,7 @@ package com.example.jetpack.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.jetpack.adapter.NewsBean
+import com.example.jetpack.model.NewsModel
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -15,7 +15,7 @@ class NewsRepository {
         private const val NETWORK_PAGE_SIZE = 25
     }
 
-    fun loadNews(type: String): Flow<PagingData<NewsBean>> {
+    fun loadNews(type: String): Flow<PagingData<NewsModel>> {
         return Pager(
             config = PagingConfig(
                 enablePlaceholders = false,

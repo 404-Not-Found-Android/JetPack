@@ -10,21 +10,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpack.BR
 import com.example.jetpack.databinding.ItemNewsBinding
+import com.example.jetpack.model.NewsModel
 
 /**
  * Description :
  * CreateTime  : 2020/7/27
  */
-class NewsAdapter(context: Context) : PagingDataAdapter<NewsBean, RecyclerView.ViewHolder>(newsDiffCallback) {
+class NewsAdapter(context: Context) : PagingDataAdapter<NewsModel, RecyclerView.ViewHolder>(newsDiffCallback) {
 
     companion object {
-        private val newsDiffCallback = object : DiffUtil.ItemCallback<NewsBean>() {
-            override fun areItemsTheSame(oldItem: NewsBean, newItem: NewsBean): Boolean {
+        private val newsDiffCallback = object : DiffUtil.ItemCallback<NewsModel>() {
+            override fun areItemsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
                 return oldItem.uniquekey == newItem.uniquekey
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: NewsBean, newItem: NewsBean): Boolean {
+            override fun areContentsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
                 return oldItem == newItem
             }
         }

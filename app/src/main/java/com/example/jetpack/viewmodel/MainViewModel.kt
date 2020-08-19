@@ -1,12 +1,9 @@
 package com.example.jetpack.viewmodel
 
 import androidx.lifecycle.*
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.jetpack.adapter.NewsBean
-import com.example.jetpack.data.NewsDataSource
+import com.example.jetpack.model.NewsModel
 import com.example.jetpack.data.NewsRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -17,10 +14,10 @@ import kotlinx.coroutines.flow.Flow
 class MainViewModel constructor(private val repository: NewsRepository) :
     ViewModel() {
 
-    private val liveData = MutableLiveData<NewsBean>()
+    private val liveData = MutableLiveData<NewsModel>()
     private val type = ""
 
-    fun loadNewsFormLivData(type: String): LiveData<PagingData<NewsBean>> {
+    fun loadNewsFormLivData(type: String): LiveData<PagingData<NewsModel>> {
         return data
     }
 
@@ -28,7 +25,7 @@ class MainViewModel constructor(private val repository: NewsRepository) :
         repository.loadNews(type).cachedIn(viewModelScope).asLiveData()
     }
 
-    fun loadNews(type: String): Flow<PagingData<NewsBean>> {
+    fun loadNews(type: String): Flow<PagingData<NewsModel>> {
         return repository.loadNews(type).cachedIn(viewModelScope)
 //        Pager(
 //            config = PagingConfig(pageSize = 20, prefetchDistance = 1),

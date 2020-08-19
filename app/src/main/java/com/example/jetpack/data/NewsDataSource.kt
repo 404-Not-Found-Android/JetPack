@@ -1,20 +1,17 @@
 package com.example.jetpack.data
 
 import androidx.paging.PagingSource
-import com.example.jetpack.adapter.NewsBean
+import com.example.jetpack.model.NewsModel
 import com.example.jetpack.net.ApiRetrofit
-import com.example.jetpack.net.request.NewsRequest
 import com.example.jetpack.net.response.NewsResponse
-import retrofit2.HttpException
-import java.io.IOException
 
 /**
  * Description :
  * CreateTime  : 2020/6/16
  */
 class NewsDataSource(private val type: String) :
-    PagingSource<Int, NewsBean>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NewsBean> {
+    PagingSource<Int, NewsModel>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NewsModel> {
         return try {
             val loadNews = ApiRetrofit.getInstance().loadNews(type)
             val newsBean = getNewsBean(loadNews.result.data)
@@ -28,11 +25,11 @@ class NewsDataSource(private val type: String) :
         }
     }
 
-    private fun getNewsBean(data: List<NewsResponse.ResultBean.DataBean>): MutableList<NewsBean> {
-        val newsBeanList = mutableListOf<NewsBean>()
+    private fun getNewsBean(data: List<NewsResponse.ResultBean.DataBean>): MutableList<NewsModel> {
+        val newsBeanList = mutableListOf<NewsModel>()
         if (data.isNotEmpty()) {
             data.forEach {
-                val newsBean = NewsBean()
+                val newsBean = NewsModel()
                 newsBean.author_name = it.author_name
                 newsBean.category = it.category
                 newsBean.date = it.date

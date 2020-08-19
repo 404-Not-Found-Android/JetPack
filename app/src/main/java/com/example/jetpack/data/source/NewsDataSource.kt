@@ -1,7 +1,7 @@
 package com.example.jetpack.data.source
 
 import androidx.paging.PagingSource
-import com.example.jetpack.adapter.NewsBean
+import com.example.jetpack.model.NewsModel
 import com.example.jetpack.net.ApiRetrofit
 import com.example.jetpack.net.response.NewsResponse
 
@@ -10,7 +10,7 @@ import com.example.jetpack.net.response.NewsResponse
  * CreateTime  : 2020/8/19
  */
 class NewsDataSource {
-    suspend fun loadNews(type: String): PagingSource.LoadResult<Int, NewsBean> {
+    suspend fun loadNews(type: String): PagingSource.LoadResult<Int, NewsModel> {
         return try {
             val loadNews = ApiRetrofit.getInstance().loadNews(type)
             val newsBean = getNewsBean(loadNews.result.data)
@@ -24,11 +24,11 @@ class NewsDataSource {
         }
     }
 
-    private fun getNewsBean(data: List<NewsResponse.ResultBean.DataBean>): MutableList<NewsBean> {
-        val newsBeanList = mutableListOf<NewsBean>()
+    private fun getNewsBean(data: List<NewsResponse.ResultBean.DataBean>): MutableList<NewsModel> {
+        val newsBeanList = mutableListOf<NewsModel>()
         if (data.isNotEmpty()) {
             data.forEach {
-                val newsBean = NewsBean()
+                val newsBean = NewsModel()
                 newsBean.author_name = it.author_name
                 newsBean.category = it.category
                 newsBean.date = it.date

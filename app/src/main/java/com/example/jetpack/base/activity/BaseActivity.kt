@@ -1,4 +1,4 @@
-package com.example.jetpack.ui.base
+package com.example.jetpack.base.activity
 
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -19,7 +19,7 @@ import com.kingja.loadsir.core.LoadSir
  * CreateTime  : 2020/6/9
  */
 abstract class BaseActivity<V : ViewDataBinding> : AppCompatActivity(), Observer<NetworkState> {
-    lateinit var viewDataBinding: V
+    private lateinit var viewDataBinding: V
     private lateinit var loadService: LoadService<*>
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
