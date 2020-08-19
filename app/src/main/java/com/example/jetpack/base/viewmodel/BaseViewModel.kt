@@ -1,9 +1,9 @@
-package com.example.jetpack.viewmodel
+package com.example.jetpack.base.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
+import com.example.jetpack.base.model.BaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -12,13 +12,7 @@ import kotlinx.coroutines.withContext
  * Description :
  * CreateTime  : 2020/6/13
  */
-abstract class BaseViewModel<M : BaseModel>(application: Application) :
-    AndroidViewModel(application) {
-    val model: M by lazy {
-        initModel()
-    }
-
-    abstract fun initModel(): M
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
     fun runOnIO(block: () -> Unit) {
         viewModelScope.launch {

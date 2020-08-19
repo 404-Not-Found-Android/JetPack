@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.jetpack.net.ApiRetrofit
 import com.example.jetpack.net.NetworkState
 import com.example.jetpack.net.response.NewsResponse
-import com.example.jetpack.viewmodel.BaseModel
+import com.example.jetpack.base.model.BaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

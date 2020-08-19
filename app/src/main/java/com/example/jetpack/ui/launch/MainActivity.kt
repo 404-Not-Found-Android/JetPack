@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private val type = "新闻"
-    private val adapter = NewsAdapter()
+    private val adapter = NewsAdapter(applicationContext)
 
     private val viewModel by lazy {
         ViewModelProvider(this, NewsViewModelFactory(NewsRepository()))

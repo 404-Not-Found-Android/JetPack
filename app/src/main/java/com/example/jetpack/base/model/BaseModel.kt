@@ -1,4 +1,4 @@
-package com.example.jetpack.viewmodel
+package com.example.jetpack.base.model
 
 /**
  * Description :

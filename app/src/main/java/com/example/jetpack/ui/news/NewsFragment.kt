@@ -1,31 +1,23 @@
-package com.example.jetpack.ui.fragment
+package com.example.jetpack.ui.news
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jetpack.R
 import com.example.jetpack.adapter.NewsAdapter
-import com.example.jetpack.data.NewsRepository
+import com.example.jetpack.base.fragment.BaseFragment
 import com.example.jetpack.databinding.FragmentNewsBinding
-import com.example.jetpack.viewmodel.MainViewModel
-import com.example.jetpack.viewmodel.NewsViewModelFactory
-import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener
-import kotlinx.coroutines.Job
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
-class NewsFragment : Fragment() {
+@AndroidEntryPoint
+class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     companion object {
         fun newInstance(type: String): NewsFragment {
             val args = Bundle()
@@ -36,14 +28,10 @@ class NewsFragment : Fragment() {
         }
     }
 
-    private var loadNewsJob: Job? = null
-    private val adapter = NewsAdapter()
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            NewsViewModelFactory(NewsRepository())
-        ).get(MainViewModel::class.java)
-    }
+    private var adapter: NewsAdapter? = null
+
+    private val viewModel by viewModels<NewsViewModel>()
+
 
     @ExperimentalPagingApi
     override fun onCreateView(
@@ -53,17 +41,16 @@ class NewsFragment : Fragment() {
     ): View? {
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
         context ?: return binding.root
+        adapter = NewsAdapter(requireContext())
         binding.smartRefresh.setEnableLoadMore(false)
         binding.smartRefresh.setOnRefreshListener {
-            adapter.refresh()
+            adapter?.refresh()
         }
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        adapter.addDataRefreshListener {
+        adapter?.addDataRefreshListener {
             binding.smartRefresh.finishRefresh()
         }
-        adapter.addLoadStateListener { loadState ->
+        adapter?.addLoadStateListener { loadState ->
             when (loadState.refresh) {
                 is LoadState.Loading -> {
 
@@ -84,10 +71,11 @@ class NewsFragment : Fragment() {
     }
 
     private fun loadData(type: String) {
-        loadNewsJob?.cancel()
-        loadNewsJob = lifecycleScope.launch {
+//        loadNewsJob?.cancel()
+//        loadNewsJob =
+        lifecycleScope.launch {
             viewModel.loadNews(type).collect {
-                adapter.submitData(it)
+                adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
             }
         }
 
@@ -100,6 +88,22 @@ class NewsFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        loadNewsJob?.cancel()
+//        loadNewsJob?.cancel()
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_news
+    }
+
+    override fun initView() {
+
+    }
+
+    override fun initViewModel() {
+
+    }
+
+    override fun initListener() {
+
     }
 }
