@@ -1,10 +1,10 @@
-package com.example.jetpack.adapter
+package com.example.jetpack.model
 
 /**
  * Description :
  * CreateTime  : 2020/7/27
  */
-class NewsBean {
+class NewsModel {
     var uniquekey: String? = null
     var title: String? = null
     var date: String? = null

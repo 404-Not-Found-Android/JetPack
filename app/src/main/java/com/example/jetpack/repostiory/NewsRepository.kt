@@ -1,8 +1,7 @@
 package com.example.jetpack.repostiory
 
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
-import com.example.jetpack.adapter.NewsBean
+import com.example.jetpack.model.NewsModel
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -10,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
  * CreateTime  : 2020/8/19
  */
 interface NewsRepository {
-    suspend fun loadNewsFromNet(type: String): Flow<PagingData<NewsBean>>
+    suspend fun loadNewsFromNet(type: String): Flow<PagingData<NewsModel>>
 }

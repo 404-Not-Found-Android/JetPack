@@ -34,21 +34,16 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 
 
     @ExperimentalPagingApi
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentNewsBinding.inflate(inflater, container, false)
-        context ?: return binding.root
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        dataBinding = FragmentNewsBinding.inflate(inflater, container, false)
         adapter = NewsAdapter(requireContext())
-        binding.smartRefresh.setEnableLoadMore(false)
-        binding.smartRefresh.setOnRefreshListener {
+        dataBinding.smartRefresh.setEnableLoadMore(false)
+        dataBinding.smartRefresh.setOnRefreshListener {
             adapter?.refresh()
         }
-        binding.recyclerView.adapter = adapter
+        dataBinding.recyclerView.adapter = adapter
         adapter?.addDataRefreshListener {
-            binding.smartRefresh.finishRefresh()
+            dataBinding.smartRefresh.finishRefresh()
         }
         adapter?.addLoadStateListener { loadState ->
             when (loadState.refresh) {
@@ -56,39 +51,26 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 
                 }
                 is LoadState.Error -> {
-                    binding.smartRefresh.finishRefresh()
-                    binding.smartRefresh.finishLoadMore()
+                    dataBinding.smartRefresh.finishRefresh()
+                    dataBinding.smartRefresh.finishLoadMore()
                 }
                 is LoadState.NotLoading -> {
-                    binding.smartRefresh.finishRefresh()
-                    binding.smartRefresh.finishLoadMore()
+                    dataBinding.smartRefresh.finishRefresh()
+                    dataBinding.smartRefresh.finishLoadMore()
                 }
             }
         }
         val type = arguments?.getString("type")
         type?.let { loadData(it) }
-        return binding.root
+        return dataBinding.root
     }
 
     private fun loadData(type: String) {
-//        loadNewsJob?.cancel()
-//        loadNewsJob =
         lifecycleScope.launch {
             viewModel.loadNews(type).collect {
                 adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
             }
         }
-
-//        viewModel.loadNewsFormLivData(type).observe(viewLifecycleOwner, Observer { pagingData ->
-//            lifecycleScope.launch {
-//                adapter.submitData(lifecycle, pagingData)
-//            }
-//        })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-//        loadNewsJob?.cancel()
     }
 
     override fun getLayoutId(): Int {

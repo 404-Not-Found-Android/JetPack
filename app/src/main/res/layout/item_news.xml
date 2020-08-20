@@ -11,7 +11,7 @@
 
         <variable
             name="newBean"
-            type="com.example.jetpack.adapter.NewsBean" />
+            type="com.example.jetpack.model.NewsModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
