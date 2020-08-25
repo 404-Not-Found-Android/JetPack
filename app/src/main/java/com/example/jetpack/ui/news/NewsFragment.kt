@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import com.example.jetpack.R
@@ -13,8 +13,6 @@ import com.example.jetpack.adapter.NewsAdapter
 import com.example.jetpack.base.fragment.BaseFragment
 import com.example.jetpack.databinding.FragmentNewsBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding>() {
@@ -66,11 +64,14 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     }
 
     private fun loadData(type: String) {
-        lifecycleScope.launch {
-            viewModel.loadNews(type).collect {
-                adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
-            }
-        }
+        viewModel.loadNews(type)
+//        viewModel.newsDataFromNet.observe(viewLifecycleOwner, Observer {
+//            adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
+//        })
+
+        viewModel.newsDataFromDb.observe(viewLifecycleOwner, Observer {
+            adapter?.submitData(pagingData = it,lifecycle = viewLifecycleOwner.lifecycle)
+        })
     }
 
     override fun getLayoutId(): Int {

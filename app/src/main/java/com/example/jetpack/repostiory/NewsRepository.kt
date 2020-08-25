@@ -1,7 +1,10 @@
 package com.example.jetpack.repostiory
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import androidx.paging.PagingData
 import com.example.jetpack.model.NewsModel
+import com.example.jetpack.room.entity.DxNews
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -9,5 +12,7 @@ import kotlinx.coroutines.flow.Flow
  * CreateTime  : 2020/8/19
  */
 interface NewsRepository {
-    suspend fun loadNewsFromNet(type: String): Flow<PagingData<NewsModel>>
+    fun loadNewsFromNet(type: String): Flow<PagingData<NewsModel>>
+    fun loadNewsFromDb(type: String): Flow<PagingData<NewsModel>>
+//    fun loadNewsFromDb(type: String): LiveData<PagedList<NewsModel>>
 }

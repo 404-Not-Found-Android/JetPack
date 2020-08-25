@@ -10,7 +10,10 @@ import dagger.hilt.android.HiltAndroidApp
  */
 @HiltAndroidApp
 class BaseApplication : Application() {
-    lateinit var context: Context
+    companion object {
+        lateinit var context: Context
+    }
+
     override fun onCreate() {
         super.onCreate()
         context = applicationContext

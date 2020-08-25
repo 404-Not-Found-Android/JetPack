@@ -13,10 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".navigation.LaunchActivity">
 
-        </activity>
-        <activity android:name=".ui.launch.MainActivity"></activity>
         <activity android:name=".ui.launch.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
