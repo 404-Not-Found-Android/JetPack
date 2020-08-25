@@ -123,42 +123,36 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
-    def room_version = "2.2.5"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
     // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
 
     // optional - RxJava support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
 
     // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation "androidx.room:room-guava:$room_version"
-    kapt "androidx.room:room-compiler:2.2.5"
-    implementation "androidx.work:work-runtime-ktx:2.1.0"
-    implementation "androidx.test.ext:junit:1.1.1"
+    implementation "androidx.room:room-guava:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
     // Test helpers
-    testImplementation "androidx.room:room-testing:$room_version"
-
-    def nav_version = "2.3.0"
+    testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
     // Java language implementation
-    implementation "androidx.navigation:navigation-fragment:$nav_version"
-    implementation "androidx.navigation:navigation-ui:$nav_version"
+    implementation "androidx.navigation:navigation-fragment:$rootProject.navgationVersion"
+    implementation "androidx.navigation:navigation-ui:$rootProject.navgationVersion"
 
     // Kotlin
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navgationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navgationVersion"
 
     // Dynamic Feature Module Support
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$rootProject.navgationVersion"
 
     // Testing Navigation
-    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navgationVersion"
     implementation "com.google.dagger:hilt-android:2.28-alpha"
     kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'

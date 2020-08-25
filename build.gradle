@@ -30,6 +30,8 @@ ext {
     archVersion = "2.1.0"
     retrofitVersion = "2.9.0"
     okhttpVersion = "4.8.0"
+    roomVersion = "2.3.0-alpha01"
+    navgationVersion = "2.3.0"
 }
 
 task clean(type: Delete) {
