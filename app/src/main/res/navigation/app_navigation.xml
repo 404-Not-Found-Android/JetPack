@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/homePagerFragment">
+    <fragment
+        android:id="@+id/homePagerFragment"
+        android:name="com.example.jetpack.ui.home.HomePagerFragment"
+        android:label="HomePagerFragment"
+        tools:layout="@layout/fragment_home_pager" />
+    <navigation
+        android:id="@+id/navigationNewFragment"
+        app:startDestination="@id/newsFragment">
+        <fragment
+            android:id="@+id/newsFragment"
+            android:name="com.example.jetpack.ui.news.NewsFragment"
+            android:label="fragment_news"
+            tools:layout="@layout/fragment_news" />
+    </navigation>
+    <action
+        android:id="@+id/action_global_navigationLoadNewsPageFragment"
+        app:destination="@id/navigationLoadNewsPageFragment"
+        app:enterAnim="@anim/fragment_close_enter"
+        app:exitAnim="@anim/fragment_close_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_enter" />
+    <navigation
+        android:id="@+id/navigationLoadNewsPageFragment"
+        app:startDestination="@id/loadNewsPageFragment">
+        <fragment
+            android:id="@+id/loadNewsPageFragment"
+            android:name="com.example.jetpack.ui.news.LoadNewsPageFragment"
+            android:label="LoadNewsPageFragment"
+            tools:layout="@layout/fragment_load_news_page" />
+    </navigation>
+    <navigation
+        android:id="@+id/navigationNewsPageActivity"
+        app:startDestination="@id/newsPageActivity">
+        <activity
+            android:id="@+id/newsPageActivity"
+            android:name="com.example.jetpack.ui.news.NewsPageActivity"
+            android:label="NewsPageActivity"
+            tools:layout="@layout/activity_news_page" />
+    </navigation>
+    <action
+        android:id="@+id/action_global_navigationNewsPageActivity"
+        app:destination="@id/navigationNewsPageActivity" />
+</navigation>

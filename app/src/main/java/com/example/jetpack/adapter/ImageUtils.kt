@@ -17,7 +17,6 @@ object ImageUtils {
     @JvmStatic
     fun loadImageFromUrl(view: ImageView, imageUrl: String?) {
         if (!imageUrl.isNullOrEmpty()) {
-
             view.visibility = View.VISIBLE
             Glide.with(view.context)
                 .load(imageUrl)

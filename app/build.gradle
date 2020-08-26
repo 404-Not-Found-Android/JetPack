@@ -121,6 +121,10 @@ dependencies {
     implementation 'com.scwang.smart:refresh-footer-ball:2.0.1'        //球脉冲加载
     implementation 'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
 
+    implementation 'com.just.agentweb:agentweb:4.1.4' // (必选)
+//    implementation 'com.just.agentweb:filechooser:4.1.4'// (可选)
+//    implementation 'com.download.library:Downloader:4.1.4'// (可选)
+
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"

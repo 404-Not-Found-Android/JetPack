@@ -4,26 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import com.example.jetpack.R
-import com.example.jetpack.adapter.NewsAdapter
+import com.example.jetpack.base.adatper.OnItemClickListener
 import com.example.jetpack.base.fragment.BaseFragment
 import com.example.jetpack.databinding.FragmentNewsBinding
+import com.example.jetpack.model.NewsModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     companion object {
-        fun newInstance(type: String): NewsFragment {
-            val args = Bundle()
-            args.putString("type", type)
-            val fragment = NewsFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        const val BUNDLE_TYPE = "bundle_type"
     }
 
     private var adapter: NewsAdapter? = null
@@ -32,7 +29,11 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 
 
     @ExperimentalPagingApi
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         dataBinding = FragmentNewsBinding.inflate(inflater, container, false)
         adapter = NewsAdapter(requireContext())
         dataBinding.smartRefresh.setEnableLoadMore(false)
@@ -58,20 +59,13 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
                 }
             }
         }
-        val type = arguments?.getString("type")
-        type?.let { loadData(it) }
+        arguments?.takeIf { it.containsKey(BUNDLE_TYPE) }?.apply {
+            getString(BUNDLE_TYPE)?.let {
+                viewModel.loadNews(it)
+            }
+
+        }
         return dataBinding.root
-    }
-
-    private fun loadData(type: String) {
-        viewModel.loadNews(type)
-//        viewModel.newsDataFromNet.observe(viewLifecycleOwner, Observer {
-//            adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
-//        })
-
-        viewModel.newsDataFromDb.observe(viewLifecycleOwner, Observer {
-            adapter?.submitData(pagingData = it,lifecycle = viewLifecycleOwner.lifecycle)
-        })
     }
 
     override fun getLayoutId(): Int {
@@ -83,10 +77,22 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     }
 
     override fun initViewModel() {
+//        viewModel.newsDataFromNet.observe(viewLifecycleOwner, Observer {
+//            adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
+//        })
 
+        viewModel.newsDataFromDb.observe(viewLifecycleOwner, Observer {
+            adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
+        })
     }
 
     override fun initListener() {
-
+        adapter?.onItemClickListener = object : OnItemClickListener<NewsModel> {
+            override fun onClickListener(item: NewsModel?, position: Int?) {
+                super.onClickListener(item, position)
+                val bundle = bundleOf(LoadNewsPageFragment.BUNDLE_TITLE to item)
+                findNavController().navigate(R.id.action_global_navigationLoadNewsPageFragment,bundle)
+            }
+        }
     }
 }

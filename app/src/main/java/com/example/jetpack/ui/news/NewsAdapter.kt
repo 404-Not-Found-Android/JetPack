@@ -1,14 +1,16 @@
-package com.example.jetpack.adapter
+package com.example.jetpack.ui.news
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpack.BR
+import com.example.jetpack.base.adatper.OnItemClickListener
 import com.example.jetpack.databinding.ItemNewsBinding
 import com.example.jetpack.model.NewsModel
 
@@ -33,11 +35,16 @@ class NewsAdapter(context: Context) : PagingDataAdapter<NewsModel, RecyclerView.
 
     private val layoutInflater by lazy { LayoutInflater.from(context) }
 
+    lateinit var onItemClickListener: OnItemClickListener<NewsModel>
+
     class ViewHolder<T : ViewDataBinding>(val binding: T) : RecyclerView.ViewHolder(binding.root)
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder<*>).binding.setVariable(BR.newBean,getItem(position))
+        (holder as ViewHolder<*>).run {
+            val newsModel = getItem(position)
+            binding.setVariable(BR.newBean,getItem(position))
+            binding.setVariable(BR.clickListener,View.OnClickListener { onItemClickListener.onClickListener(item = newsModel) })
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
