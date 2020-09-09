@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/jetpack_mvvm" />
+            <option value="$PROJECT_DIR$/jetpack_network" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

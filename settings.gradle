@@ -1,3 +1,4 @@
+include ':jetpack_network'
 include ':jetpack_mvvm'
 rootProject.name='JetPack'
 include ':app'

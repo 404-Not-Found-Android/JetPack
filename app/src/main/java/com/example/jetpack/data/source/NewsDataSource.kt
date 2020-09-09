@@ -3,6 +3,8 @@ package com.example.jetpack.data.source
 import androidx.paging.PagingSource
 import com.example.jetpack.model.NewsModel
 import com.example.jetpack.net.ApiRetrofit
+import com.example.jetpack.net.ApiRetrofit2
+import com.example.jetpack.net.ApiService
 import com.example.jetpack.net.response.NewsResponse
 import com.example.jetpack.room.database.RoomDaoDataBase
 import com.example.jetpack.room.entity.DxNews
@@ -15,7 +17,8 @@ class NewsDataSource constructor(private val type: String, private val daoDataBa
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NewsModel> {
         return try {
             val newsModels: MutableList<NewsModel> = mutableListOf()
-            val loadNews = ApiRetrofit.getInstance().loadNews(type)
+            val loadNews = ApiRetrofit2.getInstance().getService(ApiService::class.java).loadNews(type)
+//            val loadNews = ApiRetrofit.getInstance().loadNews(type)
             newsModels.addAll(getNewsBean(loadNews.result.data))
             saveNews(newsModels)
             val queryAllNews = daoDataBase.newsDao().queryAllNews(type)
