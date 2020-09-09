@@ -1,4 +1,4 @@
-package com.example.jetpack.base.adatper
+package com.example.mvvm.base.adatper
 
 /**
  * Description :

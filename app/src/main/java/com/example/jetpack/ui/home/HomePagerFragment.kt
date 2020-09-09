@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.jetpack.R
-import com.example.jetpack.base.fragment.BaseFragment
 import com.example.jetpack.databinding.FragmentHomePagerBinding
 import com.example.jetpack.ui.news.NewsFragment
+import com.example.mvvm.base.fragment.BaseFragment
 import com.google.android.material.tabs.TabLayout
 
 /**

@@ -21,5 +21,5 @@ interface NewsDao {
     fun queryAllNewsPaging3(newsType: String): PagingSource<Int, DxNews>
 
     @Query("SELECT * FROM T_News WHERE type = :newsType")
-    fun queryAllNews(newsType: String): DataSource.Factory<Int, DxNews>
+    fun queryAllNews(newsType: String): List<DxNews>
 }

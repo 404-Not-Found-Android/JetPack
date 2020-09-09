@@ -20,11 +20,7 @@
     </navigation>
     <action
         android:id="@+id/action_global_navigationLoadNewsPageFragment"
-        app:destination="@id/navigationLoadNewsPageFragment"
-        app:enterAnim="@anim/fragment_close_enter"
-        app:exitAnim="@anim/fragment_close_exit"
-        app:popEnterAnim="@anim/fragment_close_enter"
-        app:popExitAnim="@anim/fragment_close_enter" />
+        app:destination="@id/navigationLoadNewsPageFragment" />
     <navigation
         android:id="@+id/navigationLoadNewsPageFragment"
         app:startDestination="@id/loadNewsPageFragment">

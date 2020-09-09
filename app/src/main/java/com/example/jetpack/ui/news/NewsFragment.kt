@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.jetpack.R
-import com.example.jetpack.base.adatper.OnItemClickListener
-import com.example.jetpack.base.fragment.BaseFragment
 import com.example.jetpack.databinding.FragmentNewsBinding
 import com.example.jetpack.model.NewsModel
+import com.example.mvvm.base.adatper.OnItemClickListener
+import com.example.mvvm.base.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding>() {
@@ -23,7 +26,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         const val BUNDLE_TYPE = "bundle_type"
     }
 
-    private var adapter: NewsAdapter? = null
+    private lateinit var adapter: NewsAdapter
 
     private val viewModel by viewModels<NewsViewModel>()
 
@@ -38,13 +41,19 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         adapter = NewsAdapter(requireContext())
         dataBinding.smartRefresh.setEnableLoadMore(false)
         dataBinding.smartRefresh.setOnRefreshListener {
-            adapter?.refresh()
+            adapter.refresh()
         }
         dataBinding.recyclerView.adapter = adapter
-        adapter?.addDataRefreshListener {
+        val dividerItemDecoration =
+            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        ContextCompat.getDrawable(requireContext(), R.drawable.divider_item_decoration)?.apply {
+            dividerItemDecoration.setDrawable(this)
+        }
+        dataBinding.recyclerView.addItemDecoration(dividerItemDecoration)
+        adapter.addDataRefreshListener {
             dataBinding.smartRefresh.finishRefresh()
         }
-        adapter?.addLoadStateListener { loadState ->
+        adapter.addLoadStateListener { loadState ->
             when (loadState.refresh) {
                 is LoadState.Loading -> {
 
@@ -59,6 +68,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
                 }
             }
         }
+
         arguments?.takeIf { it.containsKey(BUNDLE_TYPE) }?.apply {
             getString(BUNDLE_TYPE)?.let {
                 viewModel.loadNews(it)
@@ -77,21 +87,21 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     }
 
     override fun initViewModel() {
-//        viewModel.newsDataFromNet.observe(viewLifecycleOwner, Observer {
-//            adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
-//        })
-
-        viewModel.newsDataFromDb.observe(viewLifecycleOwner, Observer {
+        viewModel.newsDataFromNet.observe(viewLifecycleOwner, Observer {
             adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
         })
+
+//        viewModel.newsDataFromDb.observe(viewLifecycleOwner, Observer {
+//            adapter.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
+//        })
     }
 
     override fun initListener() {
-        adapter?.onItemClickListener = object : OnItemClickListener<NewsModel> {
+        adapter.onItemClickListener = object : OnItemClickListener<NewsModel> {
             override fun onClickListener(item: NewsModel?, position: Int?) {
                 super.onClickListener(item, position)
                 val bundle = bundleOf(LoadNewsPageFragment.BUNDLE_TITLE to item)
-                findNavController().navigate(R.id.action_global_navigationLoadNewsPageFragment,bundle)
+                findNavController().navigate(R.id.action_global_navigationNewsPageActivity, bundle)
             }
         }
     }

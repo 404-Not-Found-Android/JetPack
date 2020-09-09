@@ -19,9 +19,9 @@ class NewsPageActivity : AppCompatActivity() {
         const val BUNDLE_TITLE = "news"
     }
 
-    lateinit var newsModel: NewsModel
+    private lateinit var newsModel: NewsModel
     lateinit var binding: ActivityNewsPageBinding
-    lateinit var agentWeb: AgentWeb
+    private lateinit var agentWeb: AgentWeb
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,8 +7,8 @@ import androidx.paging.PagedList
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.jetpack.model.NewsModel
-import com.example.jetpack.base.viewmodel.BaseViewModel
 import com.example.jetpack.repostiory.impl.NewsRepositoryImpl
+import com.example.mvvm.base.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.Flow
 
 /**

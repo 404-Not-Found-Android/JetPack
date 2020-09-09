@@ -18,21 +18,14 @@ import javax.inject.Inject
 class NewsRepositoryImpl @Inject constructor(private val dataBase: RoomDaoDataBase) :
     NewsRepository {
     override fun loadNewsFromNet(type: String): Flow<PagingData<NewsModel>> {
-        return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 30),
-            pagingSourceFactory = {
-                NewsDataSource(
-                    type,
-                    dataBase
-                )
-            }).flow
+        return Pager(config = PagingConfig(enablePlaceholders = false, pageSize = 30),
+            pagingSourceFactory = { NewsDataSource(type, dataBase) }).flow
     }
 
     override fun loadNewsFromDb(type: String): Flow<PagingData<NewsModel>> {
         return Pager(config = PagingConfig(pageSize = 10),
             pagingSourceFactory = { dataBase.newsDao().queryAllNewsPaging3(type) })
             .flow.map { pagingData ->
-                val newsModel: NewsModel? = null
                 pagingData.map { dxNews ->
                     convertDxNewsToNewsModel(dxNews)
                 }

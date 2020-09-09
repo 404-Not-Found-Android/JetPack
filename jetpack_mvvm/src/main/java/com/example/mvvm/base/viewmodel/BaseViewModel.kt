@@ -1,9 +1,8 @@
-package com.example.jetpack.base.viewmodel
+package com.example.mvvm.base.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.jetpack.base.model.BaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +24,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     fun runOnUI(block: () -> Unit) {
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
-                block
+                block()
             }
         }
     }

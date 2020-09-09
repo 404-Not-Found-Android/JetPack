@@ -1,4 +1,4 @@
-package com.example.jetpack.base.model
+package com.example.mvvm.base.model
 
 /**
  * Description :

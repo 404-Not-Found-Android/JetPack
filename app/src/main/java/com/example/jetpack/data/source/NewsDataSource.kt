@@ -11,23 +11,45 @@ import com.example.jetpack.room.entity.DxNews
  * Description :
  * CreateTime  : 2020/6/16
  */
-class NewsDataSource constructor(
-    private val type: String,
-    private val daoDataBase: RoomDaoDataBase
-) : PagingSource<Int, NewsModel>() {
+class NewsDataSource constructor(private val type: String, private val daoDataBase: RoomDaoDataBase) : PagingSource<Int, NewsModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NewsModel> {
         return try {
+            val newsModels: MutableList<NewsModel> = mutableListOf()
             val loadNews = ApiRetrofit.getInstance().loadNews(type)
-            val newsBean = getNewsBean(loadNews.result.data)
-            saveNews(newsBean)
-            LoadResult.Page(
-                data = newsBean,
-                prevKey = null,
-                nextKey = null
-            )
+            newsModels.addAll(getNewsBean(loadNews.result.data))
+            saveNews(newsModels)
+            val queryAllNews = daoDataBase.newsDao().queryAllNews(type)
+            queryAllNews.forEach { dxNews ->
+                val newsModel = NewsModel()
+                newsModel.uniquekey = dxNews.uuid
+                newsModel.author_name = dxNews.authorName
+                newsModel.title = dxNews.title
+                newsModel.category = dxNews.category
+                newsModel.date = dxNews.date
+                newsModel.thumbnail_pic_s = dxNews.thumbnail_pic_s
+                newsModel.thumbnail_pic_s02 = dxNews.thumbnail_pic_s02
+                newsModel.thumbnail_pic_s03 = dxNews.thumbnail_pic_s03
+                newsModel.url = dxNews.url
+                newsModels.add(newsModel)
+            }
+            LoadResult.Page(data = newsModels, prevKey = null, nextKey = null)
         } catch (e: Exception) {
             LoadResult.Error(e)
         }
+    }
+
+    private fun convertDxNewsToNewsModel(dxNews: DxNews): NewsModel {
+        val newsModel = NewsModel()
+        newsModel.uniquekey = dxNews.uuid
+        newsModel.author_name = dxNews.authorName
+        newsModel.title = dxNews.title
+        newsModel.category = dxNews.category
+        newsModel.date = dxNews.date
+        newsModel.thumbnail_pic_s = dxNews.thumbnail_pic_s
+        newsModel.thumbnail_pic_s02 = dxNews.thumbnail_pic_s02
+        newsModel.thumbnail_pic_s03 = dxNews.thumbnail_pic_s03
+        newsModel.url = dxNews.url
+        return newsModel
     }
 
     private fun getNewsBean(data: List<NewsResponse.ResultBean.DataBean>): MutableList<NewsModel> {

@@ -1,4 +1,4 @@
-package com.example.jetpack.base.activity
+package com.example.mvvm.base.activity
 
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import com.example.jetpack.net.NetworkState
-import com.example.jetpack.net.Status
+import com.example.mvvm.base.data.NetworkState
+import com.example.mvvm.base.data.Status
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 

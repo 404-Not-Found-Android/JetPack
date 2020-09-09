@@ -7,8 +7,8 @@ import java.util.concurrent.Executors
  * CreateTime  : 2020/7/22
  */
 class Executors {
-    private val IO_EXECUTOR = Executors.newSingleThreadExecutor()
+    private val executorService = Executors.newSingleThreadExecutor()
     fun ioThread(f: () -> Unit) {
-        IO_EXECUTOR.execute(f)
+        executorService.execute(f)
     }
 }

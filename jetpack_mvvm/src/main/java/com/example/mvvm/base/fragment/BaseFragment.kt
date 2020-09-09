@@ -1,4 +1,4 @@
-package com.example.jetpack.base.fragment
+package com.example.mvvm.base.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -9,9 +9,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.example.jetpack.R
-import com.example.jetpack.base.fragment.BaseFragment
 import com.example.jetpack.databinding.FragmentLoadNewsPageBinding
 import com.example.jetpack.model.NewsModel
+import com.example.mvvm.base.fragment.BaseFragment
 import com.just.agentweb.AgentWeb
 
 /**

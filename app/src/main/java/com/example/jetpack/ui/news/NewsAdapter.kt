@@ -10,9 +10,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpack.BR
-import com.example.jetpack.base.adatper.OnItemClickListener
 import com.example.jetpack.databinding.ItemNewsBinding
 import com.example.jetpack.model.NewsModel
+import com.example.mvvm.base.adatper.OnItemClickListener
 
 /**
  * Description :
