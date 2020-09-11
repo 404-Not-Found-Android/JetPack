@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 abstract class NetworkApi {
     private lateinit var okHttpClient: OkHttpClient
 
-    fun getRetrofit(clazz: Class<*>, baseUsl: String): Retrofit {
+    fun getRetrofit(baseUsl: String): Retrofit {
         val builder = Retrofit.Builder()
         builder.baseUrl(baseUsl)
         builder.client(getOkHttpClient())

@@ -16,7 +16,7 @@ class ApiRetrofit2 : NetworkApi() {
     }
 
     fun <T> getService(clazz: Class<T>): T {
-        return getInstance().getRetrofit(clazz, AppConst.NET_URL).create(clazz)
+        return getInstance().getRetrofit(AppConst.NET_URL).create(clazz)
     }
 
 }
