@@ -1,6 +1,6 @@
 package com.example.jetpack.net
 
-import com.example.network.base.NetworkApi
+import com.example.jetpack.network.base.NetworkApi
 
 /**
  * Description :

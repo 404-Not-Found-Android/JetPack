@@ -1,6 +1,7 @@
 package com.example.jetpack.repostiory
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import androidx.paging.PagingData
 import com.example.jetpack.model.NewsModel
@@ -15,4 +16,5 @@ interface NewsRepository {
     fun loadNewsFromNet(type: String): Flow<PagingData<NewsModel>>
     fun loadNewsFromDb(type: String): Flow<PagingData<NewsModel>>
 //    fun loadNewsFromDb(type: String): LiveData<PagedList<NewsModel>>
+    fun loadNewsByLiveData(type: String):LiveData<NewsModel>
 }

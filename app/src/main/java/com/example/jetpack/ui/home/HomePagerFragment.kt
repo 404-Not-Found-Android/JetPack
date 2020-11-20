@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.jetpack.R
 import com.example.jetpack.databinding.FragmentHomePagerBinding
 import com.example.jetpack.ui.news.NewsFragment
-import com.example.mvvm.base.fragment.BaseFragment
+import com.example.jetpack.mvvm.base.fragment.BaseFragment
 import com.google.android.material.tabs.TabLayout
 
 /**

@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         def nav_version = "2.3.0-alpha01"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
@@ -25,13 +25,13 @@ allprojects {
 }
 
 ext {
-    pagingVersion = "3.0.0-alpha01"
+    pagingVersion = '3.0.0-alpha09'
     lifecycleVersion = "2.2.0"
     archVersion = "2.1.0"
     retrofitVersion = "2.9.0"
     okhttpVersion = "4.8.0"
     roomVersion = "2.3.0-alpha01"
-    navgationVersion = "2.3.0"
+    navgationVersion = '2.3.1'
 }
 
 task clean(type: Delete) {

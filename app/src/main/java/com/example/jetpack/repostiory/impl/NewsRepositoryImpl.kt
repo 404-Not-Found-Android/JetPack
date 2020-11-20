@@ -1,6 +1,7 @@
 package com.example.jetpack.repostiory.impl
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import androidx.paging.*
 import com.example.jetpack.model.NewsModel
 import com.example.jetpack.data.source.NewsDataSource
@@ -50,5 +51,11 @@ class NewsRepositoryImpl @Inject constructor(private val dataBase: RoomDaoDataBa
         newsModel.thumbnail_pic_s03 = dxNews.thumbnail_pic_s03
         newsModel.url = dxNews.url
         return newsModel
+    }
+
+    override fun loadNewsByLiveData(type: String): LiveData<NewsModel> {
+        return dataBase.newsDao().queryAllNewsByLiveData(type).map { dxNews ->
+            convertDxNewsToNewsModel(dxNews)
+        }
     }
 }

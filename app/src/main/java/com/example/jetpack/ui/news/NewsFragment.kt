@@ -15,10 +15,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.jetpack.R
 import com.example.jetpack.databinding.FragmentNewsBinding
 import com.example.jetpack.model.NewsModel
-import com.example.mvvm.base.adatper.OnItemClickListener
-import com.example.mvvm.base.fragment.BaseFragment
+import com.example.jetpack.mvvm.base.adatper.OnItemClickListener
+import com.example.jetpack.mvvm.base.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding>() {
@@ -26,7 +25,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         const val BUNDLE_TYPE = "bundle_type"
     }
 
-    private lateinit var adapter: NewsAdapter
+    private lateinit var adapter: NewsPagingAdapter
 
     private val viewModel by viewModels<NewsViewModel>()
 
@@ -38,7 +37,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         savedInstanceState: Bundle?
     ): View? {
         dataBinding = FragmentNewsBinding.inflate(inflater, container, false)
-        adapter = NewsAdapter(requireContext())
+        adapter = NewsPagingAdapter(requireContext())
         dataBinding.smartRefresh.setEnableLoadMore(false)
         dataBinding.smartRefresh.setOnRefreshListener {
             adapter.refresh()
@@ -88,7 +87,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 
     override fun initViewModel() {
         viewModel.newsDataFromNet.observe(viewLifecycleOwner, Observer {
-            adapter?.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
+            adapter.submitData(pagingData = it, lifecycle = viewLifecycleOwner.lifecycle)
         })
 
 //        viewModel.newsDataFromDb.observe(viewLifecycleOwner, Observer {

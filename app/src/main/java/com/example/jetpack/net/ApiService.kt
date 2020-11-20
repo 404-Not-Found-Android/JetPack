@@ -9,7 +9,6 @@ import retrofit2.http.*
  * CreateTime  : 2020/6/12
  */
 interface ApiService {
-    //    @FormUrlEncoded
     @GET("/toutiao/index?")
     suspend fun loadNews(
         @Query("type") type: String,

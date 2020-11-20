@@ -1,10 +1,13 @@
 package com.example.jetpack.viewmodel
 
 import androidx.lifecycle.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.jetpack.model.NewsModel
 import com.example.jetpack.data.NewsRepository
+import com.example.jetpack.data.source.NewsDataSource
 import kotlinx.coroutines.flow.Flow
 
 /**

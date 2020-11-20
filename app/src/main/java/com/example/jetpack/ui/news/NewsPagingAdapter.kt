@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpack.BR
 import com.example.jetpack.databinding.ItemNewsBinding
 import com.example.jetpack.model.NewsModel
-import com.example.mvvm.base.adatper.OnItemClickListener
+import com.example.jetpack.mvvm.base.adatper.OnItemClickListener
 
 /**
  * Description :
  * CreateTime  : 2020/7/27
  */
-class NewsAdapter(context: Context) : PagingDataAdapter<NewsModel, RecyclerView.ViewHolder>(newsDiffCallback) {
+class NewsPagingAdapter(context: Context) : PagingDataAdapter<NewsModel, RecyclerView.ViewHolder>(newsDiffCallback) {
 
     companion object {
         private val newsDiffCallback = object : DiffUtil.ItemCallback<NewsModel>() {
