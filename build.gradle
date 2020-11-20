@@ -24,16 +24,6 @@ allprojects {
     }
 }
 
-ext {
-    pagingVersion = '3.0.0-alpha09'
-    lifecycleVersion = "2.2.0"
-    archVersion = "2.1.0"
-    retrofitVersion = "2.9.0"
-    okhttpVersion = '4.9.0'
-    roomVersion = "2.3.0-alpha01"
-    navgationVersion = '2.3.1'
-}
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
